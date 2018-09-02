@@ -34,11 +34,22 @@ $(document).ready(function () {
 
         if (event.keyCode == 13) {
             console.log("keypress called")
+            //this triggers the click event automagically
+            //$("#button").trigger("click");
+            //another way to have the enter key work
+            fetchCities();
+
         }
     })
 
     //$("#button").click(function () {
+    //this handles the button click
     $("#button").on("click keypress", function () {
+        fetchCities();
+    })
+    //extracting the contents of a function into a new function
+
+    function fetchCities() {
         // real base URL http://api.wunderground.com/api/962391fa967f0a1c/conditions/q/
         //"http://localhost:3000/weather/weather.json"
 
@@ -48,27 +59,28 @@ $(document).ready(function () {
         const url = `http://autocomplete.wunderground.com/aq?query=${city}&cb=getCities`
 
         $.ajax(url, {
-            //***why use jsonp because doesn't have CORS enabled
+            //***why use jsonp: because doesn't have CORS enabled
             dataType: 'jsonp',
             method: 'GET'
         }).done(function (data, textStatus) {
 
             console.log('Data:', data);
             console.log('Text Status:', textStatus);
-            //?define data
             const city = data;
             getCities(data);
-
-            //$("#cityContent").val("");
             $("#cityNames").val("");
 
 
         })
 
-    })
+    }
     /*$("#button").click(function(){
         $("#weather").remove()
     });*/
+    $("#cityNames").change(function(){
+       console.log("cityNames Change")
+       $("#getWeather").click();
+    }) 
     function showWeatherData(weatherData) {
         //copied from weather.js
         // console.log(weatherData.current_observation.display_location.state)
@@ -77,7 +89,6 @@ $(document).ready(function () {
         // }
         console.log(weatherData);
 
-        //******where did weatherCondition come from?
         const weatherCondition = weather
         //not needed for loop for this JSON file if had multiple locations then for loop required
         //for (const weather of Object.values(weatherData)) {
@@ -108,6 +119,7 @@ $(document).ready(function () {
         //}
 
     }
+    
     $("#getWeather").click(function () {
         console.log("clicked")
         let weatherCity = $("#cityNames option:selected").val();
@@ -122,7 +134,7 @@ $(document).ready(function () {
             console.log('Text Status:', textStatus);
             const weather = data;
             showWeatherData(data);
-
+            $("#cityContent").val("");
         })
     })
 });

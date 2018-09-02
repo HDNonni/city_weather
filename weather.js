@@ -40,31 +40,31 @@ $(document).ready(function () {
     }
     //loads event
     //$(function () {
-        $("#button").click(function () {
-            // real base URL http://api.wunderground.com/api/962391fa967f0a1c/conditions/q/
-            //"http://localhost:3000/weather/weather.json"
-            //get zip code from text box
-            const zipCode = $('#zipCode').val();
-            console.log('ZipCode', zipCode);
-            const url = `http://api.wunderground.com/api/962391fa967f0a1c/conditions/q/${zipCode}.json`
-            $.ajax(url, {
-                dataType: 'json',
-                method: 'GET'
-            }).done(function (data, textStatus) {
-                console.log('Data:', data);
-                console.log('Text Status:', textStatus);
-                const weather = data;
-                showWeatherData(data);
-                $("#zipCode").val("");
-                
-                })
-            })
-            /*$("#button").click(function(){
-                $("#weather").remove()
-            });*/
+    $("#button").click(function () {
+        // real base URL http://api.wunderground.com/api/962391fa967f0a1c/conditions/q/
+        //"http://localhost:3000/weather/weather.json"
+        //get zip code from text box
+        const zipCode = $('#zipCode').val();
+        console.log('ZipCode', zipCode);
+        const url = `http://api.wunderground.com/api/962391fa967f0a1c/conditions/q/${zipCode}.json`
+        $.ajax(url, {
+            dataType: 'json',
+            method: 'GET'
+        }).done(function (data, textStatus) {
+            console.log('Data:', data);
+            console.log('Text Status:', textStatus);
+            const weather = data;
+            showWeatherData(data);
+            $("#zipCode").val("");
+
         })
+    })
+    /*$("#button").click(function(){
+        $("#weather").remove()
+    });*/
+})
     //})
-   
+
 
 
 

@@ -77,25 +77,29 @@ $(document).ready(function () {
     /*$("#button").click(function(){
         $("#weather").remove()
     });*/
-    $("#cityNames").change(function(){
-       console.log("cityNames Change")
-       $("#getWeather").click();
-    }) 
+    $("#cityNames").change(function () {
+        console.log("cityNames Change")
+        $("#getWeather").click();
+    })
     function showWeatherData(weatherData) {
         //copied from weather.js
         // console.log(weatherData.current_observation.display_location.state)
         // for(const locationData of Object.values(weatherData.current_observation.display_location)) {
         //     console.log(locationData);
         // }
-        console.log(weatherData);
+        console.log("weather Data:", weatherData);
 
         const weatherCondition = weather
         //not needed for loop for this JSON file if had multiple locations then for loop required
         //for (const weather of Object.values(weatherData)) {
         //console.log('Weather: ', weatherData);
-
-        $("#weather").append(`
-        <div>
+        //tried here to have text be something else if unavailable and works , needs treaking
+        if (weatherData.current_observation == undefined) {
+            $("#weather").text("<li>Sorry Weather Unavailable!</li>")
+            //$("#weather").replaceWith("<li>Sorry Weather Unavailable!</li>")
+        } else {
+            $("#weather").append(`
+        <div> 
             <ul>
               <li>Dewpoint:${weatherData.current_observation.dewpoint_f} </li>
                 <ul>
@@ -116,10 +120,17 @@ $(document).ready(function () {
             </ul>
         </div>
         `);
-        //}
-
+        if (weatherData.current_observation.temp_f <=50){
+            
+        }
+            //}
+            /*if (weatherData.current_observation == undefined) {
+                $("#weather").text("<li>Sorry Weather Unavailable!</li>")
+                //$("#weather").replaceWith("<li>Sorry Weather Unavailable!</li>")
+            } else {*/
+        }
     }
-    
+
     $("#getWeather").click(function () {
         console.log("clicked")
         let weatherCity = $("#cityNames option:selected").val();

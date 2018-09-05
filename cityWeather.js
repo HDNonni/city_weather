@@ -47,12 +47,13 @@ $(document).ready(function () {
     $("#button").on("click keypress", function () {
         fetchCities();
     })
+    console.log("ABC");
     //extracting the contents of a function into a new function
 
     function fetchCities() {
         // real base URL http://api.wunderground.com/api/962391fa967f0a1c/conditions/q/
         //"http://localhost:3000/weather/weather.json"
-
+        $("#cityNames").empty()
         const city = $('#cityContent').val();
         console.log('city', city);
 
@@ -63,14 +64,11 @@ $(document).ready(function () {
             dataType: 'jsonp',
             method: 'GET'
         }).done(function (data, textStatus) {
-
-            console.log('Data:', data);
-            console.log('Text Status:', textStatus);
-            const city = data;
-            getCities(data);
-            $("#cityNames").val("");
-
-
+            // does not appear to be called due is JSONP?
+        }).always(function() {
+            
+            console.log($("#cityNames"))
+           
         })
 
     }

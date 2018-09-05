@@ -95,7 +95,7 @@ $(document).ready(function () {
         //console.log('Weather: ', weatherData);
         //tried here to have text be something else if unavailable and works , needs treaking
         if (weatherData.current_observation == undefined) {
-            $("#weather").text("<li>Sorry Weather Unavailable!</li>")
+            $("#weather").text("Sorry Weather Unavailable!")
             //$("#weather").replaceWith("<li>Sorry Weather Unavailable!</li>")
         } else {
             $("#weather").append(`
@@ -120,8 +120,12 @@ $(document).ready(function () {
             </ul>
         </div>
         `);
-        if (weatherData.current_observation.temp_f <=50){
-            
+       
+        if (weatherData.current_observation.temp_f <60){
+            $("#snow").show();
+        }
+        if (weatherData.current_observation.temp_f >=60){
+            $("#sun").show();
         }
             //}
             /*if (weatherData.current_observation == undefined) {
